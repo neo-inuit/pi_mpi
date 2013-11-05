@@ -12,11 +12,15 @@ stram=""
 hostname=""
 cmd=""
 login="rmichela"
+output="hello_mpi_out.txt"
 $cores=1
+$jobid=0
 
 #definitions
 scheduler_command = [[],[]]
-scheduler_command = [["oarrun", "oarstat", "oarkill"], ["export LD_LIBRARY_PATH=/opt/openmpi/current/lib64 && mpirun.openmpi -np %{cores} ./hello_mpi %{arg}", "qstat | grep #{login}", "qkill"]]
+#scheduler_command = [["oarrun", "oarstat", "oarkill"], ["export LD_LIBRARY_PATH=/opt/openmpi/current/lib64 && mpirun.openmpi -np %{cores} ./hello_mpi %{arg}", "qstat | grep #{login}", "qkill"]]
+
+scheduler_command = [["oarrun", "oarstat", "oarkill"], ["qsub -l \"nodes=%{cores}\"", "qstat | grep #{login}", "qkill"]]
 
 #fonctions
 def help
@@ -30,8 +34,12 @@ def launch(hostname,login,cmd)
   begin
     ssh = Net::SSH.start(hostname,login)
     res = ssh.exec!(cmd)
+    # read the output file
+    res2 = ssh.exec!("cat #{output}")
     ssh.close
     puts res
+    jobid = res
+    puts res2
   rescue
     puts "Unable to connect to #{hostname}"
   end
@@ -82,7 +90,7 @@ else
   then hostname = "nef-devel"
   end
     puts hostname
-    # agregation du nb de coeur si besoin
+    # added cores number if needed (for run cmd)
     cmd = scheduler_command[scheduler][state] % {cores: $cores, arg: "world"}
     # cmd displayed
     puts cmd
