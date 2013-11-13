@@ -7,13 +7,13 @@ set(CMAKE_LINKER "mpicc.openmpi")
 #set(LIBS "-L/usr/lib -lmpi")
 #set(INCLUDEPATH ". /usr/include/")
 
-project(hello_mpi)
+project(pi_mpi)
 
 #include_directories( ${INCLUDEPATH} )
 
 set(${PROJECT_NAME}_SOURCES
-  hello_mpi.c)
+  pi_mpi.c)
 
 add_executable(${PROJECT_NAME}
   ${${PROJECT_NAME}_SOURCES})
-#target_link_libraries(hello_mpi ${LIBS})
+#target_link_libraries(pi_mpi ${LIBS})
