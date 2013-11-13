@@ -1,4 +1,4 @@
-# hello_mpi build root
+# pi_mpi build root
 
 cmake_minimum_required(VERSION 2.8.9)
 
