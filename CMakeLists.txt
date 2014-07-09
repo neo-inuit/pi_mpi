@@ -1,6 +1,6 @@
 # pi_mpi build root
 
-cmake_minimum_required(VERSION 2.8.9)
+#cmake_minimum_required(VERSION 2.8.9)
 
 set(CMAKE_C_COMPILER "mpicc.openmpi")
 set(CMAKE_LINKER "mpicc.openmpi")
