@@ -12,6 +12,7 @@ SET(RUNTIME_OUTPUT_DIRECTORY "${CMAKE_HOME_DIRECTORY}")
 
 set(MPIEXEC "" CACHE STRING "where is located mpiexec app")
 
+#coz nef devel use also mpich mpi library so the path for openmpi is in /opt and cmake don t search there
 if(UNIX)
 	execute_process(COMMAND hostname OUTPUT_VARIABLE hostnameOutput)
 	message("hostname = ${hostnameOutput}")
